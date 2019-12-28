@@ -4,14 +4,14 @@ import "../../styles/home.scss";
 import { PeopleCard } from "./../component/people-card";
 import { Context } from "./../store/appContext";
 
-export const Home = () => {
+export const Planets = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
 		<div className="container">
 			<div className="row">
-				{!!store.people.results &&
-					store.people.results.map((item, i) => {
+				{!!store.planets.results &&
+					store.planets.results.map((item, i) => {
 						return (
 							<div className="col-md-4" key={i}>
 								<PeopleCard item={item} />
@@ -22,15 +22,15 @@ export const Home = () => {
 			<div className="row">
 				<div className="col-md-12 d-flex justify-content-between">
 					<button
-						disabled={store.people.previous === null ? true : false}
+						disabled={store.planets.previous === null ? true : false}
 						className="btn btn-info btn-md"
-						onClick={() => actions.getPeople(store.people.previous)}>
+						onClick={() => actions.getPlanets(store.planets.previous)}>
 						Previus
 					</button>
 					<button
-						disabled={store.people.next === null ? true : false}
+						disabled={store.planets.next === null ? true : false}
 						className="btn btn-info btn-md"
-						onClick={() => actions.getPeople(store.people.next)}>
+						onClick={() => actions.getPlanets(store.planets.next)}>
 						Next
 					</button>
 				</div>
