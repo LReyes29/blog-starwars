@@ -20,6 +20,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(url)
 					.then(resp => resp.json())
 					.then(data => setStore({ people: data }));
+			},
+			getFetch: url => {
+				return fetch(url);
 			}
 		}
 	};
