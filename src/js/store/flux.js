@@ -33,7 +33,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						favorites: store.favorites
 					});
 				} else {
-					console.log("1");
 					store.favorites.splice(store.favorites.indexOf(name), 1);
 					setStore({
 						favorites: store.favorites

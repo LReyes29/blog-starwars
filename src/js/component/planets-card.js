@@ -6,26 +6,6 @@ import { Context } from "./../store/appContext";
 export const PlanetsCard = props => {
 	const { store, actions } = useContext(Context);
 
-	const setFavorite = (e, id) => {
-		e.preventDefault();
-		e.stopPropagation();
-
-		if (localStorage.getItem("favorite_" + id)) {
-			localStorage.removeItem("favorite_" + id);
-			e.target.classList.replace("fas", "far");
-		} else {
-			localStorage.setItem("favorite_" + id, id);
-			e.target.classList.replace("far", "fas");
-		}
-	};
-
-	const selected = () => {
-		return "fas fa-bookmark fas-1,5x float-right p-2";
-	};
-	const unselected = () => {
-		return "far fa-bookmark fas-1,5x float-right p-2";
-	};
-
 	const tryRequire = path => {
 		try {
 			return require("../../img/" + path);
@@ -50,10 +30,10 @@ export const PlanetsCard = props => {
 				<span className="card-title h4 pl-2">{props.item.name}</span>
 				<i
 					className={
-						localStorage.getItem("favorite_" + props.id.replace(" ", "-")) ? selected() : unselected()
+						"far fa-bookmark fas-1,5x float-right p-2 " + (actions.contains(props.item.name) ? "fas" : "")
 					}
 					id={props.id.replace(" ", "-")}
-					onClick={e => setFavorite(e, props.id.replace(" ", "-"))}
+					onClick={() => actions.toFavorites(props.item.name, actions.contains(props.item.name) ? "fas" : "")}
 				/>
 				<p className="card-text pl-2">Climate: {props.item.climate}</p>
 			</div>
