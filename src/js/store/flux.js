@@ -3,7 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			vehicles: {},
 			planets: {},
-			people: {}
+			people: {},
+			favorites: []
 		},
 		actions: {
 			getVehicles: url => {
@@ -23,6 +24,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getFetch: url => {
 				return fetch(url);
+			},
+			toFavorites: (name, opt) => {
+				const store = getStore();
+				if (opt == "") {
+					store.favorites.push(name);
+					setStore({
+						favorites: store.favorites
+					});
+				} else {
+					console.log("1");
+					store.favorites.splice(store.favorites.indexOf(name), 1);
+					setStore({
+						favorites: store.favorites
+					});
+				}
+			},
+			contains: name => {
+				const store = getStore();
+				for (var i = 0; i < store.favorites.length; i++) {
+					if (store.favorites[i] === name) {
+						return true;
+					}
+				}
+				return false;
 			}
 		}
 	};

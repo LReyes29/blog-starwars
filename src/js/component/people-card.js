@@ -5,10 +5,8 @@ import { Context } from "./../store/appContext";
 
 export const PeopleCard = props => {
 	const { store, actions } = useContext(Context);
-	const [colorSelected, setColorSelected] = useState("fas fa-bookmark fas-1,5x float-right p-2");
-	const [colorUnSelected, setColorUnSelected] = useState("fas fa-bookmark fas-1,5x float-right p-2");
 
-	const setFavorite = (e, id) => {
+	/*const setFavorite = (e, id) => {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -19,14 +17,7 @@ export const PeopleCard = props => {
 			localStorage.setItem("favorite_" + id, id);
 			e.target.classList.replace("far", "fas");
 		}
-	};
-
-	const selected = () => {
-		return "fas fa-bookmark fas-1,5x float-right p-2";
-	};
-	const unselected = () => {
-		return "far fa-bookmark fas-1,5x float-right p-2";
-	};
+	};*/
 
 	const tryRequire = path => {
 		try {
@@ -53,10 +44,18 @@ export const PeopleCard = props => {
 				<span className="card-title h4 pl-2">{props.item.name}</span>
 				<i
 					className={
-						localStorage.getItem("favorite_" + props.id.replace(" ", "-")) ? selected() : unselected()
+						"far fa-bookmark fas-1,5x float-right p-2 " + (actions.contains(props.item.name) ? "fas" : "")
 					}
 					id={props.id.replace(" ", "-")}
-					onClick={e => setFavorite(e, props.id.replace(" ", "-"))}
+					onClick={() => actions.toFavorites(props.item.name, actions.contains(props.item.name) ? "fas" : "")}
+
+					/*
+					className={
+						localStorage.getItem("favorite_" + props.id.replace(" ", "-")) ? "fas fa-bookmark fas-1,5x float-right p-2" : "far fa-bookmark fas-1,5x float-right p-2"
+					}
+					onClick={e => setFavorite(e, props.id.replace(" ", "-"))
+					}
+					*/
 				/>
 				<p className="card-text pl-2">Gender: {props.item.gender}</p>
 			</div>
