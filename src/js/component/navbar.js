@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/star-wars-logo.png";
+import { Context } from "./../store/appContext";
 
 export const Navbar = () => {
+	const { store, actions } = useContext(Context);
+
 	const style = {
 		background: "black",
 		height: "130px"
@@ -66,9 +69,26 @@ export const Navbar = () => {
 					<span className="navbar-brand mb-0 h1">Planets</span>
 				</Link>
 				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-dark">Check the Context in action</button>
-					</Link>
+					<div className="dropdown">
+						<button
+							className="btn btn-secondary dropdown-toggle"
+							type="button"
+							id="dropdownMenuButton"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="false">
+							Favorites
+						</button>
+						<div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+							{store.favorites.map((item, i) => {
+								return (
+									<a className="dropdown-item" key={i} href="#">
+										{item}
+									</a>
+								);
+							})}
+						</div>
+					</div>
 				</div>
 			</nav>
 		</div>
